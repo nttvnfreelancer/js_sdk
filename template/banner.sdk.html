@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Banner for SDK</title>
+  </head>
+
+  <body>
+    <a href="/index.html">BACK</a>
+    <div style="margin-bottom: 100px">Ads Test</div>
+
+    <h1>ID=1 300x250 Non-Responsive no size limit</h1>
+
+    <div id="rdn-adspot-1-a"></div>
+
+    <script>
+      var rdntag = rdntag || {};
+      rdntag.cmd = rdntag.cmd || [];
+      rdntag.cmd.push(function () {
+        rdntag.defineAd(1, 'rdn-adspot-1-a');
+        rdntag.display('rdn-adspot-1-a');
+      });
+    </script>
+
+    <h1>ID=1 300x250 Non-Responsive, with size limit 150*auto</h1>
+
+    <div style="width: 150px">
+      <div id="rdn-adspot-1-b"></div>
+    </div>
+
+    <script>
+      var rdntag = rdntag || {};
+      rdntag.cmd = rdntag.cmd || [];
+      rdntag.cmd.push(function () {
+        rdntag.defineAd(1, 'rdn-adspot-1-b');
+        rdntag.display('rdn-adspot-1-b');
+      });
+    </script>
+
+    <script src="aa.js"></script>
+  </body>
+</html>

@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Banner</title>
+  </head>
+
+  <body>
+    <a href="/index.html">BACK</a>
+    <div style="margin-bottom: 100px">Banner</div>
+
+    <h1>ID=1 300x250 Basic Banner</h1>
+    <div id="adspot-1"></div>
+    <script>
+      var rdntag = rdntag || {};
+      rdntag.cmd = rdntag.cmd || [];
+      rdntag.cmd.push(function () {
+        rdntag.defineAd(1, 'adspot-1');
+        rdntag.display('adspot-1');
+      });
+    </script>
+
+    <h1>ID=3 320x50 Basic Banner</h1>
+    <div id="adspot-3"></div>
+    <script>
+      var rdntag = rdntag || {};
+      rdntag.cmd = rdntag.cmd || [];
+      rdntag.cmd.push(function () {
+        rdntag.defineAd(3, 'adspot-3');
+        rdntag.display('adspot-3');
+      });
+    </script>
+
+    <h1>ID=1,3 320x50 multiple Basic Banner</h1>
+    <div id="adspot-4"></div>
+    <div id="adspot-5"></div>
+    <script>
+      var rdntag = rdntag || {};
+      rdntag.cmd = rdntag.cmd || [];
+      rdntag.cmd.push(function () {
+        rdntag.defineAd(1, 'adspot-4');
+        rdntag.display('adspot-4');
+        rdntag.defineAd(3, 'adspot-5');
+        rdntag.display('adspot-5');
+      });
+    </script>
+
+    <h1>ID=6 1280x200 Responsive with padding style</h1>
+    <div style="padding: 10px 30px" id="adspot-6"></div>
+    <script>
+      var rdntag = rdntag || {};
+      rdntag.cmd = rdntag.cmd || [];
+      rdntag.cmd.push(function () {
+        rdntag.defineAd(6, 'adspot-6').setResponsive(true);
+        rdntag.display('adspot-6');
+      });
+    </script>
+
+    <h1>ID=7 800x300 Responsive with padding style</h1>
+    <div style="padding: 0px 30px" id="adspot-7"></div>
+    <script>
+      var rdntag = rdntag || {};
+      rdntag.cmd = rdntag.cmd || [];
+      rdntag.cmd.push(function () {
+        rdntag.defineAd(7, 'adspot-7').setResponsive(true);
+        rdntag.display('adspot-7');
+      });
+    </script>
+
+    <h1>ID=10 300x250 Responsive</h1>
+    <div id="adspot-10"></div>
+    <script>
+      var rdntag = rdntag || {};
+      rdntag.cmd = rdntag.cmd || [];
+      rdntag.cmd.push(function () {
+        rdntag.defineAd(1, 'adspot-10').setResponsive(true);
+        rdntag.display('adspot-10');
+      });
+    </script>
+
+    <h1>ID=11 300x250 Responsive wrapped by padding style</h1>
+    <div style="padding: 0 30px">
+      <div id="adspot-11"></div>
+      <script>
+        var rdntag = rdntag || {};
+        rdntag.cmd = rdntag.cmd || [];
+        rdntag.cmd.push(function () {
+          rdntag.defineAd(1, 'adspot-11').setResponsive(true);
+          rdntag.display('adspot-11');
+        });
+      </script>
+    </div>
+
+    <h1>ID=12 300x250 request with adspot_branch_id</h1>
+    <div id="adspot-12"></div>
+    <script>
+      var rdntag = rdntag || {};
+      rdntag.cmd = rdntag.cmd || [];
+      rdntag.cmd.push(function () {
+        rdntag.defineAd(1, 'adspot-12').setAdspotBranchId(1);
+        rdntag.display('adspot-12');
+      });
+    </script>
+
+    <h1>ID=13 300x250 Flexible</h1>
+    <div id="adspot-13"></div>
+    <script>
+      var rdntag = rdntag || {};
+      rdntag.cmd = rdntag.cmd || [];
+      rdntag.cmd.push(function () {
+        rdntag.defineAd(1, 'adspot-13').setFlexible(true);
+        rdntag.display('adspot-13');
+      });
+    </script>
+
+    <h1>ID=9999 status code: 204</h1>
+    <div>
+      <div id="adspot-9999"></div>
+      <script>
+        var rdntag = rdntag || {};
+        rdntag.cmd = rdntag.cmd || [];
+        rdntag.cmd.push(function () {
+          rdntag.defineAd(9999, 'adspot-9999');
+          rdntag.display('adspot-9999');
+        });
+      </script>
+    </div>
+
+    <h1>ID=9997 status code: 502</h1>
+    <div>
+      <div id="adspot-9997"></div>
+      <script>
+        var rdntag = rdntag || {};
+        rdntag.cmd = rdntag.cmd || [];
+        rdntag.cmd.push(function () {
+          rdntag.defineAd(9997, 'adspot-9997');
+          rdntag.display('adspot-9997');
+        });
+      </script>
+    </div>
+
+    <h1>ID=9996 content delivery status code: 502</h1>
+    <div>
+      <div id="adspot-9996"></div>
+      <script>
+        var rdntag = rdntag || {};
+        rdntag.cmd = rdntag.cmd || [];
+        rdntag.cmd.push(function () {
+          rdntag.defineAd(9996, 'adspot-9996');
+          rdntag.display('adspot-9996');
+        });
+      </script>
+    </div>
+
+    <h1>ID=9995 unfilled</h1>
+    <div>
+      <div id="adspot-9995"></div>
+      <script>
+        var rdntag = rdntag || {};
+        rdntag.cmd = rdntag.cmd || [];
+        rdntag.cmd.push(function () {
+          rdntag.defineAd(9995, 'adspot-9995');
+          rdntag.display('adspot-9995');
+        });
+      </script>
+    </div>
+    <script src="aa.js"></script>
+  </body>
+</html>

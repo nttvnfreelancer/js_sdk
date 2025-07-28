@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Tracking Support Test</title>
+    <script>
+      localStorage.clear();
+    </script>
+  </head>
+  <body>
+    <a href="/index.html">BACK</a>
+    <h1>Tracking Support Test</h1>
+    <h2>rne</h2>
+    <h3 id="rne"></h3>
+    <h2>rnp</h2>
+    <h3 id="rnp"></h3>
+    <br />
+    <h2>Result:</h2>
+    <h3 id="result"></h3>
+    <script>
+      let rne = localStorage.getItem('rne');
+      let rnp = localStorage.getItem('rnp');
+      const timer = setInterval(function () {
+        rne = localStorage.getItem('rne');
+        rnp = localStorage.getItem('rnp');
+        if (rne !== null || rnp !== null) {
+          document.getElementById('rne').innerHTML = rne;
+          document.getElementById('rnp').innerHTML = rnp;
+          const result = document.getElementById('result');
+          result.innerHTML =
+            rne === null && rnp === null ? 'Failed' : 'Succeed!';
+
+          clearTimeout(timer);
+        }
+      }, 200);
+    </script>
+    <script type="text/javascript">
+      var rdnActivityParams = {
+        code: 'test1',
+        rz: 'testRz',
+        idfa: 'testIDFA',
+        adid: 'testADID',
+        keys: ['key1', 'key2', 'key3'],
+        transaction_id: 'transaction1',
+        revenue: 123456,
+        only_logging: true,
+      };
+    </script>
+    <script src="activity.js" async></script>
+  </body>
+</html>

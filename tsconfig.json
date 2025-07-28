@@ -1,0 +1,35 @@
+{
+  "compilerOptions": {
+    "outDir": "./dist/",
+    "target": "es5",
+    "module": "es6",
+    "baseUrl": ".",
+    "paths": {
+      "@src/*": ["src/*"]
+    },
+    "resolveJsonModule": true,
+    "downlevelIteration": true,
+    "moduleResolution": "node",
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "allowSyntheticDefaultImports": true,
+    "removeComments": true,
+    "noUncheckedIndexedAccess": true,
+    "strict": true,
+    "lib": [
+      "es6",
+      "es2015",
+      "es7",
+      "dom",
+      "dom.iterable",
+      "es2015.generator",
+      "es2015.collection",
+      "es2015.promise"
+    ],
+    "jsx": "react",
+    "jsxFactory": "h"
+  },
+  "include": ["./src/**/*", "types/**/*"]
+}

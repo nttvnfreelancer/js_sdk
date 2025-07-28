@@ -1,0 +1,21 @@
+{
+	"id": "c2570480101513ea51dc97b05b28d202",
+	"seatbid": [{
+		"bid": [{
+			"id": "bidid02",
+			"impid": "impid02",
+			"price": 0,
+			"adm": "<div id=\"adm456\" style=\"width:300px;height:250px;\"><p>dummy ad2<\/p><\/div><script>console.log('adm-html2');window.parent.postMessage({\"vendor\": \"rdn\", \"type\": \"expand\"},\"*\");<\/script>",
+			"cid": "675",
+			"crid": "101",
+			"w": 300,
+			"h": 250,
+			"ext": {
+				"measured_url": "https://dev-s-evt.rmp.rakuten.co.jp/measured?dat=xxxxx&cachebuster=5593616871380063942",
+				"inview_url": "https://dev-s-evt.rmp.rakuten.co.jp/inview?dat=xxxxx&cachebuster=5593616871380063942",
+				"advid": 111
+			}
+		}]
+	}],
+	"cur": "JPY"
+}

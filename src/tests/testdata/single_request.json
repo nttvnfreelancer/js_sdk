@@ -1,0 +1,38 @@
+{
+	"id": "ffbba873d4d8229cc956260ac473fb34",
+	"seatbid": [{
+		"bid": [{
+				"id": "22883238-8d60-4099-86ee-0ac54098482e",
+				"impid": "single-request-1",
+				"price": 0,
+				"adm": "<div id=\"rdn-ad-7974198499710366570\" class=\"rdn-ad-main-content\"></div>\n<script>window.rdncd = {\"src\": \"https://dev-s-dlv.rmp.rakuten.co.jp/cd?dat=xxxxx' />",
+				"cid": "987",
+				"crid": "462",
+				"w": 300,
+				"h": 250,
+				"ext": {
+					"measured_url": "https://dev-s-evt.rmp.rakuten.co.jp/measured?dat=xxxxx&cachebuster=449565965663702010",
+					"inview_url": "https://dev-s-evt.rmp.rakuten.co.jp/inview?dat=xxxxx&cachebuster=449565965663702010",
+					"advid": 309
+				}
+			},
+			{
+				"id": "",
+				"impid": "single-request-2",
+				"price": 0,
+				"adm": "<img style=\"display:none;\" width=\"1\" height=\"1\" src=\"https://dev-s-evt.rmp.rakuten.co.jp/unfilled?dat=xxxxx&cachebuster=1618279155045913\"/><script>window.rdncd = {\"unfilled\": true};</script><script src=\"https://dev-s-cdn.rmp.rakuten.co.jp/js/cd.js\" async></script>",
+				"w": 1,
+				"h": 1
+			},
+			{
+				"id": "",
+				"impid": "single-request-3",
+				"price": 0,
+				"adm": "<img style=\"display:none;\" width=\"1\" height=\"1\" src=\"https://dev-s-evt.rmp.rakuten.co.jp/unfilled?dat=xxxxx&cachebuster=1618279155210253\"/><script>window.rdncd = {\"unfilled\": true};</script><script src=\"https://dev-s-cdn.rmp.rakuten.co.jp/js/cd.js\" async></script>",
+				"w": 1,
+				"h": 1
+			}
+		]
+	}],
+	"cur": "JPY"
+}

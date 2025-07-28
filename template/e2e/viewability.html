@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Viewability</title>
+    <style>
+      .placeholder {
+        width: 1000px;
+        height: 500px;
+        background-color: bisque;
+      }
+    </style>
+  </head>
+
+  <body>
+    <a href="/index.html">BACK</a>
+    <div style="margin-bottom: 100px">Try to do something dirty</div>
+
+    <h1>Placeholder</h1>
+    <div class="placeholder"></div>
+
+    <h1>Placeholder</h1>
+    <div class="placeholder"></div>
+
+    <h1>#1 Out of view</h1>
+    <div id="adspot-1"></div>
+    <script>
+      var rdntag = rdntag || {};
+      rdntag.cmd = rdntag.cmd || [];
+      rdntag.cmd.push(function () {
+        rdntag.defineAd(1, 'adspot-1');
+        rdntag.display('adspot-1');
+      });
+    </script>
+
+    <h1>Placeholder</h1>
+    <div class="placeholder"></div>
+
+    <h1>Placeholder</h1>
+    <div class="placeholder"></div>
+
+    <script src="aa.js"></script>
+  </body>
+</html>

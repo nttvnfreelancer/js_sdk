@@ -1,0 +1,12 @@
+// `ts-node` only support `commonjs`, while tree-shaking requires `es6`.
+// It's necessary to separate `tsconfig.json` to enable tree-shaking.
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "resolveJsonModule": true,
+    "baseUrl": ".",
+    "paths": {
+      "@src/*": ["src/*"]
+    }
+  }
+}

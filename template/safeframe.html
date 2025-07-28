@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script type="text/x-safeframe" class="sf_data" id="sf_tag_1">
+      {
+      	"id" : "test-safeframe",
+      	"src" : <%=DEBUG_DOMAIN%> + "/safeframe-ad?t=199",
+      	"conf" :
+      		{
+      		"size" : "300x250",
+      		"dest":	"dummy-300x250"
+      		}
+      }
+    </script>
+    <style>
+      .placeholder {
+        width: 1000px;
+        height: 500px;
+        background-color: bisque;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1>This is a simple safeframe test</h1>
+    <h2>Placeholder</h2>
+    <div class="placeholder"></div>
+    <h2>Placeholder</h2>
+    <div class="placeholder"></div>
+    <div id="dummy-300x250" style="height:250px;"></div>
+    <script
+      type="text/javascript"
+      src="/public/safeframe/js/lib/base.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="/public/safeframe/js/host/host.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="/public/safeframe/js/lib/boot.js"
+    ></script>
+    <script type="text/javascript">
+      (function() {
+        // prettier-ignore
+        var conf = new $sf.host.Config({
+          renderFile: '/public/safeframe/html/r.html',
+          positions: {}
+        });
+      })();
+    </script>
+  </body>
+</html>

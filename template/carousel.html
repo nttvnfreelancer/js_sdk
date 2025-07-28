@@ -1,0 +1,343 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Banners in Carousel</title>
+  </head>
+
+  <body>
+    <a href="/index.html">BACK</a>
+    <div style="margin-bottom: 100px">Carousel Test</div>
+    <h1>ID=1 300x250 Banners in Carousel (Default)</h1>
+    <div id="carousel">
+      <div id="adspot-1" style="border: solid red 1px"></div>
+      <div id="adspot-2" style="border: solid blue 1px"></div>
+      <div id="adspot-3" style="border: solid green 1px"></div>
+      <div id="adspot-4" style="border: solid yellow 1px"></div>
+    </div>
+    <script>
+      var rdntag = rdntag || {};
+      rdntag.cmd = rdntag.cmd || [];
+      rdntag.cmd.push(function () {
+        rdntag
+          .defineAd(1, 'adspot-1')
+          .setImpId('single-request-1')
+          .enableSingleRequest();
+        rdntag
+          .defineAd(1, 'adspot-2')
+          .setImpId('single-request-2')
+          .enableSingleRequest();
+        rdntag
+          .defineAd(1, 'adspot-3')
+          .setImpId('single-request-3')
+          .enableSingleRequest();
+        rdntag
+          .defineAd(1, 'adspot-4')
+          .setImpId('single-request-4')
+          .enableSingleRequest();
+        rdntag.displayInCarousel('carousel', {
+          width: 350,
+          margin: 15,
+          nextMinSlideRate: 0.1,
+          responsive: false,
+          navigation: true,
+          pagination: true,
+        });
+      });
+    </script>
+    <h1>ID=1 300x250 Banners in Carousel (Loop)</h1>
+    <div id="carousel-loop">
+      <div id="adspot-loop-1" style="border: solid red 1px"></div>
+      <div id="adspot-loop-2" style="border: solid blue 1px"></div>
+      <div id="adspot-loop-3" style="border: solid green 1px"></div>
+      <div id="adspot-loop-4" style="border: solid yellow 1px"></div>
+    </div>
+    <script>
+      var rdntag = rdntag || {};
+      rdntag.cmd = rdntag.cmd || [];
+      rdntag.cmd.push(function () {
+        rdntag
+          .defineAd(1, 'adspot-loop-1')
+          .setImpId('single-request-loop-1')
+          .enableSingleRequest();
+        rdntag
+          .defineAd(1, 'adspot-loop-2')
+          .setImpId('single-request-loop-2')
+          .enableSingleRequest();
+        rdntag
+          .defineAd(1, 'adspot-loop-3')
+          .setImpId('single-request-loop-3')
+          .enableSingleRequest();
+        rdntag
+          .defineAd(1, 'adspot-loop-4')
+          .setImpId('single-request-loop-4')
+          .enableSingleRequest();
+        rdntag.displayInCarousel('carousel-loop', {
+          width: 350,
+          margin: 15,
+          nextMinSlideRate: 0.1,
+          responsive: false,
+          loop: true,
+          navigation: true,
+          pagination: true,
+        });
+      });
+    </script>
+
+    <h1>ID=1 300x250 Banners in Carousel (Includes unfilled ads)</h1>
+    <div id="carousel-unfilled">
+      <div id="adspot-filled-1" style="border: solid red 1px"></div>
+      <div id="adspot-filled-2" style="border: solid blue 1px"></div>
+      <div id="adspot-unfilled-1"></div>
+      <div id="adspot-filled-3" style="border: solid green 1px"></div>
+      <div id="adspot-filled-4" style="border: solid yellow 1px"></div>
+      <div id="adspot-unfilled-2"></div>
+    </div>
+    <script>
+      var rdntag = rdntag || {};
+      rdntag.cmd = rdntag.cmd || [];
+      rdntag.cmd.push(function () {
+        rdntag
+          .defineAd(1, 'adspot-filled-1')
+          .setImpId('single-request-unfilled-1')
+          .enableSingleRequest();
+        rdntag
+          .defineAd(1, 'adspot-filled-2')
+          .setImpId('single-request-unfilled-2')
+          .enableSingleRequest();
+        rdntag
+          .defineAd(1, 'adspot-filled-3')
+          .setImpId('single-request-unfilled-3')
+          .enableSingleRequest();
+        rdntag
+          .defineAd(1, 'adspot-filled-4')
+          .setImpId('single-request-unfilled-4')
+          .enableSingleRequest();
+        rdntag
+          .defineAd(9995, 'adspot-unfilled-1')
+          .setImpId('single-request-unfilled')
+          .enableSingleRequest();
+        rdntag
+          .defineAd(9995, 'adspot-unfilled-2')
+          .setImpId('single-request-unfilled')
+          .enableSingleRequest();
+        rdntag.displayInCarousel('carousel-unfilled', {
+          width: 350,
+          margin: 15,
+          nextMinSlideRate: 0.1,
+          responsive: false,
+          navigation: true,
+          pagination: true,
+        });
+      });
+    </script>
+
+    <h1>ID=1 300x250 Banners in Carousel (theme = shadow)</h1>
+    <div id="carousel-theme-shadow">
+      <div id="adspot-shadow-1" style="border: solid red 1px"></div>
+      <div id="adspot-shadow-2" style="border: solid blue 1px"></div>
+      <div id="adspot-shadow-3" style="border: solid green 1px"></div>
+      <div id="adspot-shadow-4" style="border: solid yellow 1px"></div>
+    </div>
+    <script>
+      var rdntag = rdntag || {};
+      rdntag.cmd = rdntag.cmd || [];
+      rdntag.cmd.push(function () {
+        rdntag
+          .defineAd(1, 'adspot-shadow-1')
+          .setImpId('single-request-shadow-1')
+          .enableSingleRequest();
+        rdntag
+          .defineAd(1, 'adspot-shadow-2')
+          .setImpId('single-request-shadow-2')
+          .enableSingleRequest();
+        rdntag
+          .defineAd(1, 'adspot-shadow-3')
+          .setImpId('single-request-shadow-3')
+          .enableSingleRequest();
+        rdntag
+          .defineAd(1, 'adspot-shadow-4')
+          .setImpId('single-request-shadow-4')
+          .enableSingleRequest();
+        rdntag.displayInCarousel('carousel-theme-shadow', {
+          width: 350,
+          margin: 15,
+          nextMinSlideRate: 0.1,
+          responsive: false,
+          navigation: {
+            size: '48px',
+            color: 'gray',
+            theme: 'shadow',
+            type: 'svg',
+          },
+          pagination: {
+            color: '#ff0000',
+            size: '4px',
+            position: 'outside',
+          },
+        });
+      });
+    </script>
+
+    <h1>ID=1 300x250 Banners in Carousel(theme = circle)</h1>
+    <div id="carousel-theme-circle">
+      <div id="adspot-circle-1" style="border: solid red 1px"></div>
+      <div id="adspot-circle-2" style="border: solid blue 1px"></div>
+      <div id="adspot-circle-3" style="border: solid green 1px"></div>
+      <div id="adspot-circle-4" style="border: solid yellow 1px"></div>
+    </div>
+    <script>
+      var rdntag = rdntag || {};
+      rdntag.cmd = rdntag.cmd || [];
+      rdntag.cmd.push(function () {
+        rdntag
+          .defineAd(1, 'adspot-circle-1')
+          .setImpId('single-request-circle-1')
+          .enableSingleRequest();
+        rdntag
+          .defineAd(1, 'adspot-circle-2')
+          .setImpId('single-request-circle-2')
+          .enableSingleRequest();
+        rdntag
+          .defineAd(1, 'adspot-circle-3')
+          .setImpId('single-request-circle-3')
+          .enableSingleRequest();
+        rdntag
+          .defineAd(1, 'adspot-circle-4')
+          .setImpId('single-request-circle-4')
+          .enableSingleRequest();
+        rdntag.displayInCarousel('carousel-theme-circle', {
+          width: 350,
+          margin: 15,
+          nextMinSlideRate: 0.1,
+          responsive: false,
+          navigation: {
+            color: 'gray',
+            size: '36px',
+            type: 'svg',
+            theme: 'circle',
+          },
+          pagination: {
+            color: '#ff0000',
+            position: 'outside',
+          },
+        });
+      });
+    </script>
+
+    <h1>ID=1 300x250 Banners in Carousel(type = text)</h1>
+    <div id="carousel-type-text">
+      <div id="adspot-text-1" style="border: solid red 1px"></div>
+      <div id="adspot-text-2" style="border: solid blue 1px"></div>
+      <div id="adspot-text-3" style="border: solid green 1px"></div>
+      <div id="adspot-text-4" style="border: solid yellow 1px"></div>
+    </div>
+    <script>
+      var rdntag = rdntag || {};
+      rdntag.cmd = rdntag.cmd || [];
+      rdntag.cmd.push(function () {
+        rdntag
+          .defineAd(1, 'adspot-text-1')
+          .setImpId('single-request-text-1')
+          .enableSingleRequest();
+        rdntag
+          .defineAd(1, 'adspot-text-2')
+          .setImpId('single-request-text-2')
+          .enableSingleRequest();
+        rdntag
+          .defineAd(1, 'adspot-text-3')
+          .setImpId('single-request-text-3')
+          .enableSingleRequest();
+        rdntag
+          .defineAd(1, 'adspot-text-4')
+          .setImpId('single-request-text-4')
+          .enableSingleRequest();
+        rdntag.displayInCarousel('carousel-type-text', {
+          width: 350,
+          margin: 15,
+          nextMinSlideRate: 0.1,
+          responsive: false,
+          navigation: {
+            color: 'gray',
+            size: '64px',
+            type: 'text',
+            theme: 'circle',
+          },
+          pagination: {
+            color: '#ff0000',
+            position: 'outside',
+          },
+        });
+      });
+    </script>
+
+    <h1>ID=1 300x250 Banners in Carousel (Free Mode)</h1>
+    <div id="carousel-free-mode">
+      <div id="adspot-free-1" style="border: solid red 1px"></div>
+      <div id="adspot-free-2" style="border: solid blue 1px"></div>
+      <div id="adspot-free-3" style="border: solid green 1px"></div>
+      <div id="adspot-free-4" style="border: solid yellow 1px"></div>
+    </div>
+    <script>
+      var rdntag = rdntag || {};
+      rdntag.cmd = rdntag.cmd || [];
+      rdntag.cmd.push(function () {
+        rdntag
+          .defineAd(1, 'adspot-free-1')
+          .setImpId('single-request-free-1')
+          .enableSingleRequest();
+        rdntag
+          .defineAd(1, 'adspot-free-2')
+          .setImpId('single-request-free-2')
+          .enableSingleRequest();
+        rdntag
+          .defineAd(1, 'adspot-free-3')
+          .setImpId('single-request-free-3')
+          .enableSingleRequest();
+        rdntag
+          .defineAd(1, 'adspot-free-4')
+          .setImpId('single-request-free-4')
+          .enableSingleRequest();
+        rdntag.displayInCarousel('carousel-free-mode', {
+          width: 350,
+          freeMode: true,
+          nextMinSlideRate: 0.05,
+          margin: 5,
+        });
+      });
+    </script>
+
+    <h1>ID=1 300x250 Banners in Carousel (1 Renderable)</h1>
+    <div id="carousel-one-ad">
+      <div id="adspot-one-ad"></div>
+      <div id="adspot-9995"></div>
+      <div id="adspot-9995-2"></div>
+    </div>
+    <script>
+      var rdntag = rdntag || {};
+      rdntag.cmd = rdntag.cmd || [];
+      rdntag.cmd.push(function () {
+        rdntag
+          .defineAd(1, 'adspot-one-ad')
+          .setImpId('single-request-one-ad')
+          .enableSingleRequest();
+        rdntag
+          .defineAd(9995, 'adspot-9995')
+          .setImpId('single-request-9995')
+          .enableSingleRequest();
+        rdntag
+          .defineAd(9995, 'adspot-9995-2')
+          .setImpId('single-request-9995-2')
+          .enableSingleRequest();
+        rdntag.displayInCarousel('carousel-one-ad', {
+          width: 350,
+          responsive: true,
+        });
+      });
+    </script>
+
+    <script src="aa.js" async></script>
+  </body>
+</html>

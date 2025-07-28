@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Lazy Load</title>
+  </head>
+
+  <body>
+    <a href="/index.html">BACK</a>
+    <div style="margin-bottom: 100px">Lazy Load Test</div>
+
+    <h1>Lazy Load</h1>
+    <div style="height: 2000px; background-color: moccasin"></div>
+    <div id="lazy-load-1"></div>
+    <div style="height: 2000px; background-color: moccasin"></div>
+    <script>
+      var rdntag = rdntag || {};
+      rdntag.cmd = rdntag.cmd || [];
+      rdntag.cmd.push(function () {
+        rdntag.enableLazyLoad(100);
+        rdntag.defineAd(1, 'lazy-load-1').setImpId('lazy-load-1');
+        rdntag.display('lazy-load-1');
+      });
+    </script>
+
+    <h1>Lazy Load with Single Request</h1>
+    <div style="height: 2000px; background-color: paleturquoise"></div>
+    <div id="lazy-load-2"></div>
+    <div id="lazy-load-3"></div>
+    <script>
+      var rdntag = rdntag || {};
+      rdntag.cmd = rdntag.cmd || [];
+      rdntag.cmd.push(function () {
+        rdntag.enableLazyLoad(100);
+        rdntag
+          .defineAd(1, 'lazy-load-2')
+          .setImpId('lazy-load-2')
+          .enableSingleRequest();
+        rdntag
+          .defineAd(1, 'lazy-load-3')
+          .setImpId('lazy-load-3')
+          .enableSingleRequest();
+        rdntag.displayWithSingleRequest();
+      });
+    </script>
+
+    <h1>Lazy Load in iframe</h1>
+    <div style="height: 2000px; background-color: yellowgreen"></div>
+    <iframe src="./lazy-load-in-iframe.html"></iframe>
+    <div style="height: 2000px; background-color: yellowgreen"></div>
+
+    <script src="aa.js" async></script>
+  </body>
+</html>

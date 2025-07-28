@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Banner with Event test</title>
+  </head>
+
+  <body>
+    <a href="/index.html">BACK</a>
+    <div style="margin-bottom: 100px">Banner with Event test</div>
+
+    <h1>ID=1 300x250 Banner with ad_status event is called</h1>
+    <div id="adspot-1"></div>
+    <script>
+      var rdntag = rdntag || {};
+      rdntag.cmd = rdntag.cmd || [];
+      rdntag.cmd.push(function () {
+        rdntag.defineAd(1, 'adspot-1').setImpId('adspot-4');
+        rdntag.display('adspot-1');
+      });
+
+      document
+        .getElementById('adspot-1')
+        .addEventListener('slotResponseReceived', function (e) {
+          console.log(
+            '[adspot-1][success] slotResponseReceived event is called:',
+            e.detail
+          );
+        });
+    </script>
+
+    <h1>
+      ID=9999 300x250 Banner StatusCode:204 with ad_status event is called
+    </h1>
+    <div id="adspot-9999"></div>
+    <script>
+      var rdntag = rdntag || {};
+      rdntag.cmd = rdntag.cmd || [];
+      rdntag.cmd.push(function () {
+        rdntag.defineAd(9999, 'adspot-9999').setImpId('adspot-9999');
+        rdntag.display('adspot-9999');
+      });
+
+      document
+        .getElementById('adspot-9999')
+        .addEventListener('slotResponseReceived', function (e) {
+          console.log(
+            '[adspot-9999][status code 204] slotResponseReceived event is called:',
+            e.detail
+          );
+        });
+    </script>
+
+    <h1>ID=9995 300x250 Banner as unfilled with ad_status event is called</h1>
+    <div id="adspot-9995"></div>
+    <script>
+      var rdntag = rdntag || {};
+      rdntag.cmd = rdntag.cmd || [];
+      rdntag.cmd.push(function () {
+        rdntag.defineAd(9995, 'adspot-9995').setImpId('adspot-9995');
+        rdntag.display('adspot-9995');
+      });
+
+      document
+        .getElementById('adspot-9995')
+        .addEventListener('slotResponseReceived', function (e) {
+          console.log(
+            '[adspot-9995][unfilled] slotResponseReceived event is called:',
+            e.detail
+          );
+        });
+    </script>
+
+    <script src="aa.js" async></script>
+  </body>
+</html>

@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Viewability</title>
+    <style>
+      .placeholder {
+        width: 1000px;
+        height: 500px;
+        background-color: bisque;
+      }
+    </style>
+
+    <script src="vw.js" async></script>
+  </head>
+
+  <body>
+    <a href="/index.html">BACK</a>
+    <div style="margin-bottom: 100px">Test viewability sdk</div>
+
+    <h1>Placeholder</h1>
+    <div class="placeholder"></div>
+
+    <h1>Placeholder</h1>
+    <div class="placeholder"></div>
+
+    <h1>#Out of view</h1>
+    <div
+      id="viewability-test-div"
+      style="background-color: black; width: 300px; height: 250px"
+    ></div>
+
+    <script>
+      window.rdnviews = window.rdnviews || [];
+      window.rdnviews.push({
+        el: document.getElementById('viewability-test-div'),
+        inviewURL: 'https://example.com/inview',
+      });
+    </script>
+  </body>
+</html>

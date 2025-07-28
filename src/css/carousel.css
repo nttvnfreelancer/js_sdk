@@ -1,0 +1,84 @@
+.wrapper {
+  position: relative;
+}
+.runa-carousel {
+  display: flex;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  flex: none;
+  flex-flow: row nowrap;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  overscroll-behavior-x: contain;
+  position: relative;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.runa-carousel::-webkit-scrollbar {
+  display: none;
+}
+
+.runa-carousel__slide {
+  text-align: center;
+  scroll-snap-align: center;
+  flex: none;
+  position: relative;
+}
+
+.runa-carousel__navigation-prev,
+.runa-carousel__navigation-next {
+  position: absolute;
+  top: 50%;
+  cursor: pointer;
+  left: 0;
+  z-index: 9999;
+  font-size: 72px;
+  transform: translateY(-50%);
+  color: #007aff;
+  padding: 4px;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-text-select: none;
+  -webkit-user-select: none;
+}
+
+.runa-carousel__navigation-next {
+  left: auto;
+  right: 0;
+}
+
+.runa-carousel__navigation-hidden {
+  display: none;
+}
+
+.runa-carousel__pagination {
+  text-align: center;
+  width: 100%;
+  z-index: 9999;
+}
+
+.runa-carousel__pagination-inside {
+  position: absolute;
+  left: 0;
+  top: auto;
+  bottom: 8px;
+}
+
+.runa-carousel__pagination-outside {
+  margin-top: 4px;
+}
+
+.runa-carousel__pagination-bullet {
+  margin: 4px;
+  width: 8px;
+  height: 8px;
+  display: inline-block;
+  border-radius: 50%;
+  background: #000000;
+  opacity: 0.3;
+}
+
+.runa-carousel__pagination-bullet_active {
+  background: #007aff;
+  opacity: 1;
+}

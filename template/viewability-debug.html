@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Viewability Debug</title>
+    <style>
+      .placeholder {
+        width: 1000px;
+        height: 500px;
+        background-color: bisque;
+      }
+    </style>
+  </head>
+
+  <body>
+    <a href="./index.html">BACK</a>
+    <div style="margin-bottom: 100px">Debug Viewability</div>
+    <h1>#101 Too small</h1>
+    <div style="width: 1px; height: 1px; overflow: hidden">
+      <div
+        id="adspot-101"
+        class="debug-vw"
+        style="width: 1px; height: 1px; overflow: hidden"
+      ></div>
+      <script>
+        var rdntag = rdntag || {};
+        rdntag.cmd = rdntag.cmd || [];
+        rdntag.cmd.push(function () {
+          rdntag.defineAd(101, 'adspot-101');
+          rdntag.display('adspot-101');
+        });
+      </script>
+    </div>
+
+    <h1>#102 Hidden with `display:none;`</h1>
+    <div id="adspot-102" class="debug-vw" style="display: none"></div>
+    <script>
+      var rdntag = rdntag || {};
+      rdntag.cmd = rdntag.cmd || [];
+      rdntag.cmd.push(function () {
+        rdntag.defineAd(102, 'adspot-102');
+        rdntag.display('adspot-102');
+      });
+    </script>
+
+    <h1>#103 Hidden with `visibility:hidden;`</h1>
+    <div id="adspot-103" class="debug-vw" style="visibility: hidden"></div>
+    <script>
+      var rdntag = rdntag || {};
+      rdntag.cmd = rdntag.cmd || [];
+      rdntag.cmd.push(function () {
+        rdntag.defineAd(103, 'adspot-103');
+        rdntag.display('adspot-103');
+      });
+    </script>
+
+    <h1>Placeholder</h1>
+    <div class="placeholder"></div>
+
+    <h1>Placeholder</h1>
+    <div class="placeholder"></div>
+
+    <h1>#104 Out of view</h1>
+    <div id="adspot-104" class="debug-vw"></div>
+    <script>
+      var rdntag = rdntag || {};
+      rdntag.cmd = rdntag.cmd || [];
+      rdntag.cmd.push(function () {
+        rdntag.defineAd(104, 'adspot-104');
+        rdntag.display('adspot-104');
+      });
+    </script>
+
+    <h1>Placeholder</h1>
+    <div class="placeholder"></div>
+
+    <h1>#105 zoomed DOM</h1>
+    <div id="adspot-105" style="zoom: 10%" class="debug-vw"></div>
+    <script>
+      var rdntag = rdntag || {};
+      rdntag.cmd = rdntag.cmd || [];
+      rdntag.cmd.push(function () {
+        rdntag.defineAd(105, 'adspot-105');
+        rdntag.display('adspot-105');
+      });
+    </script>
+
+    <h1>#106 transform:scale(0.1)</h1>
+    <div id="adspot-106" style="transform: scale(0.1)" class="debug-vw"></div>
+    <script>
+      var rdntag = rdntag || {};
+      rdntag.cmd = rdntag.cmd || [];
+      rdntag.cmd.push(function () {
+        rdntag.defineAd(106, 'adspot-106');
+        rdntag.display('adspot-106');
+      });
+    </script>
+
+    <h1>#107 transform:perspective(100px) translate3d(0, 0, -101px);</h1>
+    <div
+      id="adspot-107"
+      style="transform: perspective(1px) translate3d(0, 0, 2px)"
+      class="debug-vw"
+    ></div>
+    <script>
+      var rdntag = rdntag || {};
+      rdntag.cmd = rdntag.cmd || [];
+      rdntag.cmd.push(function () {
+        rdntag.defineAd(107, 'adspot-107');
+        rdntag.display('adspot-107');
+      });
+    </script>
+
+    <h1>#108 transform:scale3d(0.1, 0.2, 1);</h1>
+    <div
+      id="adspot-108"
+      style="transform: scale3d(0.1, 0.2, 1)"
+      class="debug-vw"
+    ></div>
+    <script>
+      var rdntag = rdntag || {};
+      rdntag.cmd = rdntag.cmd || [];
+      rdntag.cmd.push(function () {
+        rdntag.defineAd(108, 'adspot-108');
+        rdntag.display('adspot-108');
+      });
+    </script>
+
+    <h1>#120 hidden inside nested iframe</h1>
+    <iframe
+      width="100"
+      height="100"
+      src="./nested-iframe.html?depth=1&adspot_id=120"
+    >
+    </iframe>
+
+    <h1>#151 nested div DOM</h1>
+    <div id="adspot-151" class="debug-vw"></div>
+    <script>
+      var rdntag = rdntag || {};
+      rdntag.cmd = rdntag.cmd || [];
+      rdntag.cmd.push(function () {
+        rdntag.defineAd(151, 'adspot-151');
+        rdntag.display('adspot-151');
+      });
+    </script>
+
+    <h1>#152 nested offset div DOM</h1>
+    <div id="adspot-152" class="debug-vw"></div>
+    <script>
+      var rdntag = rdntag || {};
+      rdntag.cmd = rdntag.cmd || [];
+      rdntag.cmd.push(function () {
+        rdntag.defineAd(152, 'adspot-152');
+        rdntag.display('adspot-152');
+      });
+    </script>
+
+    <script src="./debugger.js"></script>
+    <script src="./aa.js"></script>
+  </body>
+</html>

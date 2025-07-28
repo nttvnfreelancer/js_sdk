@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Banner for MerchantAd (MixedAPI)</title>
+  </head>
+
+  <body>
+    <a href="/index.html">BACK</a>
+    <div style="margin-bottom: 100px">MerchantAd Test</div>
+
+    <h1>ID=1000 300x250 Banner for MerchantAd (MixedAPI)</h1>
+    <div style="padding: 0 30px">
+      <div id="adspot-1000"></div>
+      <script>
+        var rdntag = rdntag || {};
+        rdntag.cmd = rdntag.cmd || [];
+        rdntag.cmd.push(function () {
+          rdntag.defineAd(1000, 'adspot-1000').setResponsive(true);
+          rdntag.display('adspot-1000');
+        });
+      </script>
+    </div>
+
+    <script src="aa.js"></script>
+  </body>
+</html>

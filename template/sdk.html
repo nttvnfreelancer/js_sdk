@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Banner</title>
+  </head>
+
+  <body>
+    <a href="/index.html">BACK</a>
+    <div style="margin-bottom: 100px">SDK Test</div>
+
+    <h1>ID=1 300x250 Show with sdk (genre & ifa)</h1>
+    <div id="adspot-1"></div>
+
+    <script>
+      var rdntag = rdntag || {};
+      rdntag.cmd = rdntag.cmd || [];
+      rdntag.cmd.push(function () {
+        rdntag
+          .defineAd(1, 'adspot-1')
+          .setGenre({
+            master_id: 1,
+            code: '100371',
+            match: 'children',
+          })
+          .setIFA('DUMMMMMMMMMYIFA');
+        rdntag.display('adspot-1');
+      });
+    </script>
+
+    <h1>ID=1 300x250 Show with sdk (kv)</h1>
+    <div id="adspot-2"></div>
+    <script>
+      var rdntag = rdntag || {};
+      rdntag.cmd = rdntag.cmd || [];
+      rdntag.cmd.push(function () {
+        rdntag
+          .defineAd(1, 'adspot-2')
+          .setTargeting('k1', 'v1')
+          .setTargeting('k2', 'v2');
+        rdntag.display('adspot-2');
+      });
+    </script>
+
+    <script src="aa.js"></script>
+  </body>
+</html>

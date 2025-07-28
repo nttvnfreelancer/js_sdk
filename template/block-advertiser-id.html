@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Banner with setBlockedAdvertiser</title>
+  </head>
+
+  <body>
+    <a href="/index.html">BACK</a>
+    <div style="margin-bottom: 100px">Banner with setBlockedAdvertiser</div>
+
+    <script>
+      var badv = [1, 2, 3];
+    </script>
+
+    <h1>ID=1 300x250 Banner without setBlockedAdvertiser</h1>
+    <div id="adspot-1"></div>
+    <script>
+      var rdntag = rdntag || {};
+      rdntag.cmd = rdntag.cmd || [];
+      rdntag.cmd.push(function () {
+        rdntag.defineAd(1, 'adspot-1');
+        rdntag.display('adspot-1');
+      });
+      document
+        .getElementById('adspot-1')
+        .addEventListener('slotResponseReceived', function (e) {
+          console.log(
+            '[adspot-1]slotResponseReceived event is called:',
+            e.detail
+          );
+          if (e && e.detail && e.detail.adReturned && e.detail.advID) {
+            badv.push(e.detail.advID);
+            console.log('[adspot-1]', badv);
+          }
+        });
+    </script>
+
+    <h1>ID=3 300x250 Banner with setBlockedAdvertiser</h1>
+    <div id="adspot-3"></div>
+    <script>
+      var rdntag = rdntag || {};
+      rdntag.cmd = rdntag.cmd || [];
+      rdntag.cmd.push(function () {
+        rdntag.defineAd(3, 'adspot-3').setBlockedAdvertiser(badv);
+        rdntag.display('adspot-3');
+      });
+      document
+        .getElementById('adspot-3')
+        .addEventListener('slotResponseReceived', function (e) {
+          console.log(
+            '[adspot-3]slotResponseReceived event is called:',
+            e.detail
+          );
+          if (e && e.detail && e.detail.adReturned && e.detail.advID) {
+            badv.push(e.detail.advID);
+            console.log('[adspot-3]', badv);
+          }
+        });
+    </script>
+
+    <script src="aa.js" async></script>
+  </body>
+</html>

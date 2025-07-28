@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <script
+      async
+      src="https://securepubads.g.doubleclick.net/tag/js/gpt.js"
+    ></script>
+    <style>
+      .placeholder {
+        width: 100%;
+        height: 300px;
+        background-color: bisque;
+      }
+    </style>
+    <script>
+      window.googletag = window.googletag || { cmd: [] };
+      googletag.cmd.push(function() {
+        googletag.pubads().setForceSafeFrame(true);
+        googletag
+          .defineSlot(
+            '/21832868038/rakuten-ad-test-sandbox',
+            [[300, 250]],
+            'test-ad-1'
+          )
+          .setSafeFrameConfig({ sandbox: true })
+          .addService(googletag.pubads());
+
+        googletag
+          .defineSlot(
+            '/21832868038/rakuten-ad-test-responsive',
+            ['fluid'],
+            'test-fluid'
+          )
+          .addService(googletag.pubads());
+        googletag
+          .defineSlot('/21832868038/rakuten-ad-test', [[300, 250]], 'test-ad-2')
+          .addService(googletag.pubads());
+        googletag.defineSlot(
+          '/21832868038/rakuten-ad-kvs',
+          [300, 250],
+          'test-ad-kvs1'
+        );
+        googletag.defineSlot(
+          '/21832868038/rakuten-ad-kvs',
+          [300, 250],
+          'test-ad-kvs2'
+        );
+        googletag.pubads().setTargeting('genre-match', '1::123445::l1');
+
+        googletag.enableServices();
+      });
+    </script>
+  </head>
+
+  <body>
+    <a href="./index.html">BACK</a>
+    <div style="margin-bottom: 100px">Use gpt to render ad</div>
+    <h1>Placeholder</h1>
+    <div class="placeholder"></div>
+    <h1>Placeholder</h1>
+    <div class="placeholder"></div>
+    <h1>Placeholder</h1>
+    <div class="placeholder"></div>
+    <h1>Placeholder</h1>
+    <div class="placeholder"></div>
+    <h1>Placeholder</h1>
+    <div class="placeholder"></div>
+    <h1>Sandbox=true</h1>
+    <div id="test-ad-1">
+      <script>
+        googletag.cmd.push(function() {
+          googletag.display('test-ad-1');
+        });
+      </script>
+    </div>
+    <h1>Fluid</h1>
+    <div id="test-fluid">
+      <script>
+        googletag.cmd.push(function() {
+          googletag.display('test-fluid');
+        });
+      </script>
+    </div>
+    <h1>Sandbox=false</h1>
+    <div id="test-ad-2">
+      <script>
+        googletag.cmd.push(function() {
+          googletag.display('test-ad-2');
+        });
+      </script>
+    </div>
+    <h1>KVS1</h1>
+    <div id="test-ad-kvs1">
+      <script>
+        googletag.cmd.push(function() {
+          googletag.display('test-ad-kvs');
+        });
+      </script>
+    </div>
+    <h1>KVS2</h1>
+    <div id="test-ad-kvs2">
+      <script>
+        googletag.cmd.push(function() {
+          googletag.display('test-ad-kvs2');
+        });
+      </script>
+    </div>
+  </body>
+</html>

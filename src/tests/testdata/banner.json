@@ -1,0 +1,21 @@
+{
+	"id": "c2570480101513ea51dc97b05b28d201",
+	"seatbid": [{
+		"bid": [{
+			"id": "bidid01",
+			"impid": "impid01",
+			"price": 0,
+			"adm": "\u003cdiv id=\"rdn-ad-7216562046000647024\" class=\"rdn-ad-main-content\"\u003e\u003c/div\u003e\n\u003cscript\u003ewindow.rdncd = {\"src\": \"https://dev-s-dlv.rmp.rakuten.co.jp/cd?dat=xxxxx\u0026cachebuster=810929167431569395\",\"id\":\"rdn-ad-7216562046000647024\"};\u003c/script\u003e\n\u003cscript src=\"https://dev-s-cdn.rmp.rakuten.co.jp/js/cd.js\" async\u003e\u003c/script\u003e\u003cimg style='display:none;' src='https://dev-s-evt.rmp.rakuten.co.jp/imp?adspot_id=63\u0026dat=xxxxx\u0026cachebuster=1617869487292477' /\u003e",
+			"cid": "674",
+			"crid": "100",
+			"w": 300,
+			"h": 250,
+			"ext": {
+				"measured_url": "https://dev-s-evt.rmp.rakuten.co.jp/measured?dat=xxxxx&cachebuster=5593616871380063942",
+				"inview_url": "https://dev-s-evt.rmp.rakuten.co.jp/inview?dat=xxxxx&cachebuster=5593616871380063942",
+				"advid": 110
+			}
+		}]
+	}],
+	"cur": "JPY"
+}

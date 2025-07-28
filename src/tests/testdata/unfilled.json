@@ -1,0 +1,14 @@
+{
+	"id": "74a304ab9986d8b3a1b7995d59a18cc1",
+	"seatbid": [{
+		"bid": [{
+			"id": "",
+			"impid": "unfilled-id",
+			"price": 0,
+			"adm": "<img style=\"display:none;\" width=\"1\" height=\"1\" src=\"https://dev-s-evt.rmp.rakuten.co.jp/unfilled?dat=xxxxx&cachebuster=1617869849481923\"/><script>window.rdncd = {\"unfilled\": true};</script><script src=\"https://dev-s-cdn.rmp.rakuten.co.jp/js/cd.js\" async></script>",
+			"w": 1,
+			"h": 1
+		}]
+	}],
+	"cur": "JPY"
+}
