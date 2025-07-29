@@ -11,6 +11,7 @@ import {
   isCollapseAdMessage,
   isErrorAdMessage,
   isContentResizedMessage,
+  isCloseInterstitialMessage,
   isIosWindow,
 } from '@src/lib/message';
 import { createEvent, createCustomEvent } from '@src/lib/event';
@@ -21,6 +22,7 @@ import { jsTag } from '@src/types/error-log';
 import { BidrequestExt } from '@src/lib/openrtb';
 import { CarouselOptions } from '@src/types/carousel';
 import '@src/css/carousel.css';
+import '@src/css/interstitial.css';
 import { Carousel } from './carousel';
 
 export interface RDNWindow extends Window {
@@ -413,6 +415,9 @@ export class RDN {
         if (isIosWindow(window)) {
           window.webkit.messageHandlers.runaSdkInterface.postMessage(msg);
         }
+      } else if (isCloseInterstitialMessage(msg)) {
+        // Handle interstitial close
+        this.closeInterstitial(msg.adspotID);
       }
     });
   }
@@ -476,5 +481,41 @@ export class RDN {
       });
       target.dispatchEvent(receivedEvent);
     }
+  }
+
+  private closeInterstitial(adspotID: number): void {
+    // Find the interstitial iframe by searching for iframes with fullscreen styles
+    const iframes = document.querySelectorAll('iframe[style*="position: fixed"]');
+    iframes.forEach((iframe) => {
+      const iframeEl = iframe as HTMLIFrameElement;
+      try {
+        // Check if this iframe contains our interstitial overlay
+        const doc = iframeEl.contentDocument || iframeEl.contentWindow?.document;
+        if (doc) {
+          const overlay = doc.getElementById(`rdn-interstitial-${adspotID}`);
+          if (overlay) {
+            // Remove the entire iframe
+            iframeEl.remove();
+          }
+        }
+      } catch (e) {
+        // Cross-origin access may fail, but we can still check the sessionID attribute
+        const sessionID = iframeEl.getAttribute('data-rdn-session');
+        if (sessionID) {
+          // This is likely our interstitial iframe, remove it
+          iframeEl.remove();
+        }
+      }
+    });
+    
+    // Find the ad state and mark as closed
+    const adStates = this._state.getAdStates();
+    Object.keys(adStates).forEach((key) => {
+      const adState = adStates[key];
+      if (adState?.ad.adspotID === adspotID) {
+        // Dispatch close event
+        this.handleStatusEvent(adState.ad.key, false, 'closed', adState.adsID);
+      }
+    });
   }
 }

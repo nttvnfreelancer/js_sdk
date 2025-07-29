@@ -9,7 +9,8 @@ export type AdMessage =
   | IsVideoMessage
   | VideoLoadedMessage
   | ErrorAdMessage
-  | ContentResizedMessage;
+  | ContentResizedMessage
+  | CloseInterstitialMessage;
 
 export interface RegisterAdMessage {
   type: 'register';
@@ -58,6 +59,12 @@ export interface ContentResizedMessage {
   vendor: 'rdn';
 }
 
+export interface CloseInterstitialMessage {
+  type: 'close_interstitial';
+  vendor: 'rdn';
+  adspotID: number;
+}
+
 export const isRegisterAdMessage = (v: AdMessage): v is RegisterAdMessage => {
   return v && v.type === 'register';
 };
@@ -86,6 +93,12 @@ export const isContentResizedMessage = (
   v: AdMessage
 ): v is ContentResizedMessage => {
   return v && v.type === 'content_resized';
+};
+
+export const isCloseInterstitialMessage = (
+  v: AdMessage
+): v is CloseInterstitialMessage => {
+  return v && v.type === 'close_interstitial';
 };
 
 export const isAdMessage = (v: unknown): v is AdMessage => {

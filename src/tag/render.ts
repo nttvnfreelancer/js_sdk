@@ -139,6 +139,14 @@ export const render = (
   if (!ad || !rad?.response?.html) {
     return Promise.reject(new Error('invalid ad response'));
   }
+  
+  // Check if this is an interstitial ad by looking for interstitial class in HTML
+  const isInterstitial = rad.response.html.includes('rdn-interstitial-overlay');
+  
+  if (isInterstitial) {
+    return renderInterstitial(ad, rad);
+  }
+  
   const renderable = rad.response.height > 1 && rad.response.width > 1;
   rad.el.style.zIndex = '999';
   const iframe = document.createElement('iframe');
@@ -161,5 +169,44 @@ export const render = (
   if (doc) {
     doc.close();
   }
+  return Promise.resolve(iframe);
+};
+
+export const renderInterstitial = (
+  ad: Ad,
+  rad: RenderableAd
+): Promise<HTMLIFrameElement> => {
+  // Create a fullscreen iframe for interstitial
+  const iframe = document.createElement('iframe');
+  iframe.frameBorder = '0';
+  iframe.scrolling = 'no';
+  iframe.marginHeight = '0';
+  iframe.marginWidth = '0';
+  
+  // Set fullscreen styles
+  iframe.style.position = 'fixed';
+  iframe.style.top = '0';
+  iframe.style.left = '0';
+  iframe.style.width = '100vw';
+  iframe.style.height = '100vh';
+  iframe.style.zIndex = '999999';
+  iframe.style.border = 'none';
+  iframe.style.display = 'block';
+  
+  if (rad.sessionID) {
+    iframe.setAttribute(attrSessionID, rad.sessionID);
+  }
+  
+  // Append to body instead of ad element for fullscreen
+  document.body.appendChild(iframe);
+  
+  let targetHTML = rad.response.html;
+  targetHTML += viewablityMetricsHTML(rad);
+
+  const doc = renderIFrameContent(iframe, targetHTML);
+  if (doc) {
+    doc.close();
+  }
+  
   return Promise.resolve(iframe);
 };

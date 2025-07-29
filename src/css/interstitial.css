@@ -1,0 +1,121 @@
+.rdn-interstitial-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.9);
+  z-index: 999999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: Arial, sans-serif;
+}
+
+.rdn-interstitial-container {
+  position: relative;
+  max-width: 90vw;
+  max-height: 90vh;
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.rdn-interstitial-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 30px;
+  height: 30px;
+  border: none;
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  border-radius: 50%;
+  font-size: 16px;
+  cursor: pointer;
+  z-index: 1000000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.rdn-interstitial-close:hover {
+  background: rgba(0, 0, 0, 0.9);
+}
+
+.rdn-interstitial-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+.rdn-interstitial-content {
+  padding: 20px;
+  text-align: center;
+}
+
+.rdn-interstitial-image {
+  max-width: 100%;
+  height: auto;
+  max-height: 300px;
+  border-radius: 4px;
+}
+
+.rdn-interstitial-video {
+  max-width: 100%;
+  height: auto;
+  max-height: 400px;
+  border-radius: 4px;
+}
+
+.rdn-interstitial-info {
+  margin-top: 15px;
+}
+
+.rdn-interstitial-info h2 {
+  margin: 0 0 10px 0;
+  color: #333;
+  font-size: 24px;
+}
+
+.rdn-interstitial-info p {
+  margin: 0 0 15px 0;
+  color: #666;
+  font-size: 16px;
+  line-height: 1.4;
+}
+
+.rdn-interstitial-cta {
+  background: #007aff;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  font-size: 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.rdn-interstitial-cta:hover {
+  background: #0056b3;
+}
+
+@media (max-width: 768px) {
+  .rdn-interstitial-container {
+    max-width: 95vw;
+    max-height: 95vh;
+  }
+  
+  .rdn-interstitial-content {
+    padding: 15px;
+  }
+  
+  .rdn-interstitial-info h2 {
+    font-size: 20px;
+  }
+  
+  .rdn-interstitial-info p {
+    font-size: 14px;
+  }
+}
