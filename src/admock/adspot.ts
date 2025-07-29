@@ -6,6 +6,7 @@ import { ResponseOptions } from './adresponse';
 
 export const RenderType = {
   Banner: 'banner',
+  Interstitial: 'interstitial',
   OuterBanner: 'outer_banner',
   SingleRequest: 'single_request',
   Error: 'error',
@@ -33,6 +34,7 @@ export const adspotMap = (): Map<number, AdspotResponse> => {
   // - 30~     RenderType.Banner with video
   // - 101~199 RenderType.Banner with viewability
   // - 1000~   RenderType.OuterBanner
+  // - 2000~   RenderType.Interstitial
   // - 5000~   RenderType.CustomizedADM
   // - 9995    RenderType.Banner with unfilled
   // - 9996    RenderType.Banner with 502 error by content delivery
@@ -132,6 +134,20 @@ export const adspotMap = (): Map<number, AdspotResponse> => {
     height: 250,
     advid: 1,
     renderType: RenderType.OuterBanner,
+  });
+  // interstitial ads
+  adMap.set(2000, {
+    width: window.innerWidth || 320,
+    height: window.innerHeight || 568,
+    advid: 10,
+    renderType: RenderType.Interstitial,
+  });
+  adMap.set(2001, {
+    width: window.innerWidth || 320,
+    height: window.innerHeight || 568,
+    advid: 11,
+    renderType: RenderType.Interstitial,
+    opts: { isVideo: true },
   });
   // customized adm for unit test
   adMap.set(5000, {

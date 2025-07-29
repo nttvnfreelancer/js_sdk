@@ -94,6 +94,30 @@ export const adResponse = (
         );
         return;
       }
+      case RenderType.Interstitial: {
+        const adm = interstitialAdMarkUp(
+          sessionID,
+          adspotID,
+          target.width,
+          target.height,
+          target.opts
+        );
+
+        res.send(
+          JSON.stringify(
+            bannerResponse(
+              sessionID,
+              adspotID,
+              target.impId ? target.impId : impId,
+              target.width,
+              target.height,
+              adm,
+              target.advid
+            )
+          )
+        );
+        return;
+      }
       case RenderType.CustomizedADM: {
         res.send(
           JSON.stringify(
@@ -359,4 +383,177 @@ export const customizedADMResponse = (
       },
     ],
   };
+};
+
+// Interstitial Ad Markup
+export const interstitialAdMarkUp = (
+  sessionID: string,
+  adspotID: number,
+  width: number,
+  height: number,
+  opts: ResponseOptions = {}
+): string => {
+  const tagPath = process.env.DEBUG_DOMAIN ? process.env.DEBUG_DOMAIN : '';
+  const publicPath = process.env.DEBUG_PUBLIC ? process.env.DEBUG_PUBLIC : '';
+
+  const imgURL = `${publicPath}/${width > 300 ? 300 : width}x${height > 250 ? 250 : height}.jpg`;
+  const clickURL = `${tagPath}/click?adspot_id=${adspotID}&&session_id=${sessionID}`;
+  
+  let contentHTML = '';
+  
+  if (opts.isVideo) {
+    // Video interstitial content
+    contentHTML = `
+      <div class="rdn-interstitial-content">
+        <video class="rdn-interstitial-video" autoplay muted controls>
+          <source src="${publicPath}/sample-video.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+        <div class="rdn-interstitial-info">
+          <h2>Special Video Offer!</h2>
+          <p>Don't miss this exclusive opportunity</p>
+        </div>
+      </div>
+    `;
+  } else {
+    // Image interstitial content
+    contentHTML = `
+      <div class="rdn-interstitial-content">
+        <img class="rdn-interstitial-image" src="${imgURL}" alt="Interstitial Ad">
+        <div class="rdn-interstitial-info">
+          <h2>Special Offer!</h2>
+          <p>Click to learn more about this amazing deal</p>
+          <button class="rdn-interstitial-cta">Learn More</button>
+        </div>
+      </div>
+    `;
+  }
+
+  const interstitialHTML = `
+    <div class="rdn-interstitial-overlay" id="rdn-interstitial-${adspotID}">
+      <div class="rdn-interstitial-container">
+        <button class="rdn-interstitial-close" onclick="window.parent.postMessage({vendor: 'rdn', type: 'close_interstitial', adspotID: ${adspotID}}, '*')">✕</button>
+        <a href="${clickURL}" target="_blank" class="rdn-interstitial-link">
+          ${contentHTML}
+        </a>
+      </div>
+    </div>
+    <style>
+      .rdn-interstitial-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: rgba(0, 0, 0, 0.9);
+        z-index: 999999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: Arial, sans-serif;
+      }
+      .rdn-interstitial-container {
+        position: relative;
+        max-width: 90vw;
+        max-height: 90vh;
+        background: white;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+      }
+      .rdn-interstitial-close {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        width: 30px;
+        height: 30px;
+        border: none;
+        background: rgba(0, 0, 0, 0.7);
+        color: white;
+        border-radius: 50%;
+        font-size: 16px;
+        cursor: pointer;
+        z-index: 1000000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .rdn-interstitial-close:hover {
+        background: rgba(0, 0, 0, 0.9);
+      }
+      .rdn-interstitial-link {
+        text-decoration: none;
+        color: inherit;
+        display: block;
+      }
+      .rdn-interstitial-content {
+        padding: 20px;
+        text-align: center;
+      }
+      .rdn-interstitial-image {
+        max-width: 100%;
+        height: auto;
+        max-height: 300px;
+        border-radius: 4px;
+      }
+      .rdn-interstitial-video {
+        max-width: 100%;
+        height: auto;
+        max-height: 400px;
+        border-radius: 4px;
+      }
+      .rdn-interstitial-info {
+        margin-top: 15px;
+      }
+      .rdn-interstitial-info h2 {
+        margin: 0 0 10px 0;
+        color: #333;
+        font-size: 24px;
+      }
+      .rdn-interstitial-info p {
+        margin: 0 0 15px 0;
+        color: #666;
+        font-size: 16px;
+        line-height: 1.4;
+      }
+      .rdn-interstitial-cta {
+        background: #007aff;
+        color: white;
+        border: none;
+        padding: 12px 24px;
+        font-size: 16px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: bold;
+      }
+      .rdn-interstitial-cta:hover {
+        background: #0056b3;
+      }
+      @media (max-width: 768px) {
+        .rdn-interstitial-container {
+          max-width: 95vw;
+          max-height: 95vh;
+        }
+        .rdn-interstitial-content {
+          padding: 15px;
+        }
+        .rdn-interstitial-info h2 {
+          font-size: 20px;
+        }
+        .rdn-interstitial-info p {
+          font-size: 14px;
+        }
+      }
+    </style>
+    <script>
+      // Handle close button and ESC key
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+          window.parent.postMessage({vendor: 'rdn', type: 'close_interstitial', adspotID: ${adspotID}}, '*');
+        }
+      });
+    </script>
+  `;
+
+  return interstitialHTML;
 };
