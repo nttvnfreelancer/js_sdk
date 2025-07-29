@@ -1,8 +1,13 @@
 import 'es6-promise/auto';
 
 import { RDNWindow, RDN, Command } from './tag/tag';
+import { InterstitialAd } from './ads/interstitial-ad';
 
 declare let window: RDNWindow;
+
+// Make InterstitialAd available globally
+(window as any).InterstitialAd = InterstitialAd;
+(window as any).RDN = RDN;
 
 window.rdntag = ((rdntag: RDN): RDN => {
   if (rdntag?.mounted) {

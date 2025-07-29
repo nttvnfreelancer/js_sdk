@@ -8,6 +8,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 export enum AdType {
   banner = 1,
+  interstitial = 2,
 }
 
 export enum RenderStatus {

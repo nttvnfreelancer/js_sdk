@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>InterstitialAd Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            line-height: 1.6;
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .test-section h3 {
+            margin-top: 0;
+            color: #333;
+        }
+        .button {
+            background: #007cba;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 5px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .button:hover {
+            background: #005a87;
+        }
+        .button.secondary {
+            background: #666;
+        }
+        .button.secondary:hover {
+            background: #444;
+        }
+        .status {
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 4px;
+            background: #f0f0f0;
+        }
+        .status.success {
+            background: #d4edda;
+            color: #155724;
+        }
+        .status.error {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        #log {
+            background: #f5f5f5;
+            border: 1px solid #ddd;
+            padding: 10px;
+            height: 200px;
+            overflow-y: auto;
+            font-family: monospace;
+            font-size: 12px;
+        }
+        .mock-content {
+            padding: 20px;
+            text-align: center;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            color: white;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+        .mock-content h1 {
+            font-size: 3em;
+            margin: 0 0 20px 0;
+        }
+        .mock-content p {
+            font-size: 1.2em;
+            margin: 10px 0;
+        }
+        .custom-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: white;
+            color: #333;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>InterstitialAd Test Page</h1>
+    <p>This page demonstrates the InterstitialAd functionality of the R-SSP JavaScript SDK.</p>
+
+    <div class="test-section">
+        <h3>Basic InterstitialAd Test</h3>
+        <p>Test basic interstitial ad with default configuration.</p>
+        <button class="button" onclick="showBasicInterstitial()">Show Basic Interstitial</button>
+        <button class="button secondary" onclick="hideCurrentInterstitial()">Hide Current</button>
+        <div id="basic-status" class="status">Ready to test</div>
+    </div>
+
+    <div class="test-section">
+        <h3>Custom Close Button Test</h3>
+        <p>Test interstitial ad with custom close button configuration.</p>
+        <button class="button" onclick="showCustomCloseInterstitial()">Show Custom Close Button</button>
+        <div id="custom-status" class="status">Ready to test</div>
+    </div>
+
+    <div class="test-section">
+        <h3>Server Content Test</h3>
+        <p>Test fetching HTML content from server (mock).</p>
+        <button class="button" onclick="showServerContentInterstitial()">Show Server Content</button>
+        <div id="server-status" class="status">Ready to test</div>
+    </div>
+
+    <div class="test-section">
+        <h3>Event Callbacks Test</h3>
+        <p>Test all event callbacks (onShow, onHide, onClose, onError).</p>
+        <button class="button" onclick="showCallbackInterstitial()">Show with Callbacks</button>
+        <div id="callback-status" class="status">Ready to test</div>
+    </div>
+
+    <div class="test-section">
+        <h3>Full Screen HTML Content Test</h3>
+        <p>Test with rich HTML content that fills the entire screen.</p>
+        <button class="button" onclick="showFullScreenContent()">Show Full Screen HTML</button>
+        <div id="fullscreen-status" class="status">Ready to test</div>
+    </div>
+
+    <div class="test-section">
+        <h3>Event Log</h3>
+        <div id="log"></div>
+        <button class="button secondary" onclick="clearLog()">Clear Log</button>
+    </div>
+
+    <!-- Hidden div for ad placement -->
+    <div id="interstitial-container" style="display: none;"></div>
+
+    <script src="../dist/rssp.js"></script>
+    <script>
+        let currentInterstitial = null;
+        
+        function log(message) {
+            const logElement = document.getElementById('log');
+            const timestamp = new Date().toLocaleTimeString();
+            logElement.innerHTML += `[${timestamp}] ${message}\n`;
+            logElement.scrollTop = logElement.scrollHeight;
+        }
+
+        function clearLog() {
+            document.getElementById('log').innerHTML = '';
+        }
+
+        function updateStatus(elementId, message, isError = false) {
+            const element = document.getElementById(elementId);
+            element.textContent = message;
+            element.className = 'status ' + (isError ? 'error' : 'success');
+        }
+
+        function showBasicInterstitial() {
+            try {
+                // Initialize RDN if not already done
+                if (typeof window.rdntag === 'undefined') {
+                    window.rdntag = new window.RDN();
+                }
+
+                // Create interstitial ad
+                currentInterstitial = window.rdntag.defineInterstitialAd(1, 'interstitial-container');
+                
+                // Set basic content
+                const basicContent = `
+                    <div style="
+                        display: flex; 
+                        flex-direction: column; 
+                        justify-content: center; 
+                        align-items: center; 
+                        height: 100vh; 
+                        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                        color: white;
+                        text-align: center;
+                        font-family: Arial, sans-serif;
+                    ">
+                        <h1 style="font-size: 4em; margin: 0;">Basic Interstitial Ad</h1>
+                        <p style="font-size: 1.5em; margin: 20px 0;">This is a basic full-screen interstitial advertisement.</p>
+                        <p style="font-size: 1em; opacity: 0.8;">Click the X button or click outside to close.</p>
+                    </div>
+                `;
+                
+                currentInterstitial.show(basicContent);
+                updateStatus('basic-status', 'Basic interstitial shown successfully');
+                log('Basic interstitial ad displayed');
+            } catch (error) {
+                updateStatus('basic-status', `Error: ${error.message}`, true);
+                log(`Error showing basic interstitial: ${error.message}`);
+            }
+        }
+
+        function showCustomCloseInterstitial() {
+            try {
+                if (typeof window.rdntag === 'undefined') {
+                    window.rdntag = new window.RDN();
+                }
+
+                currentInterstitial = window.rdntag.defineInterstitialAd(2, 'interstitial-container');
+                
+                // Configure custom close button
+                currentInterstitial.setCloseButtonConfig({
+                    text: 'CLOSE',
+                    position: 'top-left',
+                    size: '60px',
+                    style: 'background: #ff4757; font-size: 12px; border-radius: 5px; font-weight: normal;'
+                });
+
+                const customContent = `
+                    <div style="
+                        display: flex; 
+                        flex-direction: column; 
+                        justify-content: center; 
+                        align-items: center; 
+                        height: 100vh; 
+                        background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+                        color: white;
+                        text-align: center;
+                        font-family: Arial, sans-serif;
+                    ">
+                        <h1 style="font-size: 3.5em; margin: 0;">Custom Close Button</h1>
+                        <p style="font-size: 1.3em; margin: 20px 0;">Notice the custom close button in the top-left corner.</p>
+                        <p style="font-size: 1em; opacity: 0.8;">It says "CLOSE" instead of "×" and has custom styling.</p>
+                    </div>
+                `;
+                
+                currentInterstitial.show(customContent);
+                updateStatus('custom-status', 'Custom close button interstitial shown');
+                log('Custom close button interstitial displayed');
+            } catch (error) {
+                updateStatus('custom-status', `Error: ${error.message}`, true);
+                log(`Error showing custom close interstitial: ${error.message}`);
+            }
+        }
+
+        function showServerContentInterstitial() {
+            try {
+                if (typeof window.rdntag === 'undefined') {
+                    window.rdntag = new window.RDN();
+                }
+
+                currentInterstitial = window.rdntag.defineInterstitialAd(3, 'interstitial-container');
+                
+                // Mock server content
+                const mockServerContent = `
+                    <div class="mock-content">
+                        <h1>Server-Loaded Content</h1>
+                        <p>This content would typically be fetched from a server.</p>
+                        <p>It can include any HTML, CSS, and JavaScript.</p>
+                        <div style="margin: 30px 0;">
+                            <div style="width: 100px; height: 100px; background: white; border-radius: 50%; margin: 0 auto; display: flex; align-items: center; justify-content: center; color: #333; font-weight: bold;">AD</div>
+                        </div>
+                        <p style="font-size: 0.9em; opacity: 0.8;">In a real implementation, this would be fetched via HTTP request.</p>
+                    </div>
+                `;
+                
+                currentInterstitial.show(mockServerContent);
+                updateStatus('server-status', 'Server content interstitial shown');
+                log('Server content interstitial displayed (mock data)');
+            } catch (error) {
+                updateStatus('server-status', `Error: ${error.message}`, true);
+                log(`Error showing server content interstitial: ${error.message}`);
+            }
+        }
+
+        function showCallbackInterstitial() {
+            try {
+                if (typeof window.rdntag === 'undefined') {
+                    window.rdntag = new window.RDN();
+                }
+
+                currentInterstitial = window.rdntag.defineInterstitialAd(4, 'interstitial-container');
+                
+                // Set up callbacks
+                currentInterstitial.setCallbacks({
+                    onShow: () => {
+                        log('Callback: onShow triggered');
+                        updateStatus('callback-status', 'Interstitial shown - onShow called');
+                    },
+                    onHide: () => {
+                        log('Callback: onHide triggered');
+                        updateStatus('callback-status', 'Interstitial hidden - onHide called');
+                    },
+                    onClose: () => {
+                        log('Callback: onClose triggered');
+                        updateStatus('callback-status', 'Interstitial closed - onClose called', false);
+                    },
+                    onError: (error) => {
+                        log(`Callback: onError triggered - ${error.message}`);
+                        updateStatus('callback-status', `Error callback: ${error.message}`, true);
+                    }
+                });
+
+                const callbackContent = `
+                    <div style="
+                        display: flex; 
+                        flex-direction: column; 
+                        justify-content: center; 
+                        align-items: center; 
+                        height: 100vh; 
+                        background: linear-gradient(45deg, #a8edea, #fed6e3);
+                        color: #333;
+                        text-align: center;
+                        font-family: Arial, sans-serif;
+                    ">
+                        <h1 style="font-size: 3em; margin: 0;">Event Callbacks Test</h1>
+                        <p style="font-size: 1.2em; margin: 20px 0;">Check the event log to see callback functions being triggered.</p>
+                        <ul style="text-align: left; font-size: 1em; line-height: 1.8;">
+                            <li>onShow: Called when interstitial is displayed</li>
+                            <li>onHide: Called when interstitial is hidden</li>
+                            <li>onClose: Called when user closes the interstitial</li>
+                            <li>onError: Called when an error occurs</li>
+                        </ul>
+                    </div>
+                `;
+                
+                currentInterstitial.show(callbackContent);
+                log('Callbacks interstitial displayed');
+            } catch (error) {
+                updateStatus('callback-status', `Error: ${error.message}`, true);
+                log(`Error showing callbacks interstitial: ${error.message}`);
+            }
+        }
+
+        function showFullScreenContent() {
+            try {
+                if (typeof window.rdntag === 'undefined') {
+                    window.rdntag = new window.RDN();
+                }
+
+                currentInterstitial = window.rdntag.defineInterstitialAd(5, 'interstitial-container');
+                
+                const fullScreenContent = `
+                    <div style="
+                        width: 100vw; 
+                        height: 100vh; 
+                        background: linear-gradient(45deg, #ff9a9e, #fecfef, #fecfef, #fad0c4);
+                        position: relative;
+                        overflow: hidden;
+                    ">
+                        <!-- Background animation -->
+                        <div style="
+                            position: absolute;
+                            top: -50%;
+                            left: -50%;
+                            width: 200%;
+                            height: 200%;
+                            background: url('data:image/svg+xml,<svg xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 100 100\\"><circle cx=\\"50\\" cy=\\"50\\" r=\\"1\\" fill=\\"rgba(255,255,255,0.1)\\"/></svg>') repeat;
+                            animation: float 20s infinite linear;
+                        "></div>
+                        
+                        <!-- Content -->
+                        <div style="
+                            position: relative;
+                            z-index: 1;
+                            display: flex;
+                            flex-direction: column;
+                            justify-content: center;
+                            align-items: center;
+                            height: 100%;
+                            text-align: center;
+                            color: #333;
+                            padding: 40px;
+                            box-sizing: border-box;
+                        ">
+                            <h1 style="font-size: 4em; margin: 0 0 30px 0; text-shadow: 2px 2px 4px rgba(0,0,0,0.1);">
+                                Full Screen Experience
+                            </h1>
+                            <p style="font-size: 1.5em; margin: 0 0 40px 0; max-width: 600px; line-height: 1.6;">
+                                This demonstrates how HTML content can completely fill the viewport, creating an immersive full-screen advertising experience.
+                            </p>
+                            
+                            <!-- Interactive elements -->
+                            <div style="display: flex; gap: 20px; margin: 30px 0;">
+                                <div style="
+                                    background: white;
+                                    padding: 20px;
+                                    border-radius: 10px;
+                                    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+                                    cursor: pointer;
+                                    transition: transform 0.3s;
+                                " onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+                                    <h3 style="margin: 0 0 10px 0; color: #666;">Feature 1</h3>
+                                    <p style="margin: 0; color: #888; font-size: 0.9em;">Interactive content</p>
+                                </div>
+                                <div style="
+                                    background: white;
+                                    padding: 20px;
+                                    border-radius: 10px;
+                                    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+                                    cursor: pointer;
+                                    transition: transform 0.3s;
+                                " onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+                                    <h3 style="margin: 0 0 10px 0; color: #666;">Feature 2</h3>
+                                    <p style="margin: 0; color: #888; font-size: 0.9em;">Rich media content</p>
+                                </div>
+                                <div style="
+                                    background: white;
+                                    padding: 20px;
+                                    border-radius: 10px;
+                                    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+                                    cursor: pointer;
+                                    transition: transform 0.3s;
+                                " onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+                                    <h3 style="margin: 0 0 10px 0; color: #666;">Feature 3</h3>
+                                    <p style="margin: 0; color: #888; font-size: 0.9em;">Full responsiveness</p>
+                                </div>
+                            </div>
+                            
+                            <p style="font-size: 1em; opacity: 0.7; margin-top: 40px;">
+                                Click the close button or outside this area to dismiss
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <style>
+                        @keyframes float {
+                            0% { transform: translate(-50%, -50%) rotate(0deg); }
+                            100% { transform: translate(-50%, -50%) rotate(360deg); }
+                        }
+                    </style>
+                `;
+                
+                currentInterstitial.show(fullScreenContent);
+                updateStatus('fullscreen-status', 'Full screen content interstitial shown');
+                log('Full screen content interstitial displayed');
+            } catch (error) {
+                updateStatus('fullscreen-status', `Error: ${error.message}`, true);
+                log(`Error showing full screen interstitial: ${error.message}`);
+            }
+        }
+
+        function hideCurrentInterstitial() {
+            if (currentInterstitial && currentInterstitial.isVisible()) {
+                currentInterstitial.hide();
+                log('Current interstitial hidden manually');
+            } else {
+                log('No visible interstitial to hide');
+            }
+        }
+
+        // Initialize logging
+        document.addEventListener('DOMContentLoaded', () => {
+            log('InterstitialAd test page loaded');
+            log('SDK integration ready for testing');
+        });
+    </script>
+</body>
+</html>
