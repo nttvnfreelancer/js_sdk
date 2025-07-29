@@ -22,6 +22,7 @@ import { BidrequestExt } from '@src/lib/openrtb';
 import { CarouselOptions } from '@src/types/carousel';
 import '@src/css/carousel.css';
 import { Carousel } from './carousel';
+import { InterstitialAd } from '../ads/interstitial-ad';
 
 export interface RDNWindow extends Window {
   rdntag: RDN;
@@ -68,6 +69,12 @@ export class RDN {
     const ad = new Ad(0, elID, code);
     this._state.addAdState(ad);
     return ad;
+  }
+
+  public defineInterstitialAd(id: number, elID: string): InterstitialAd {
+    const interstitialAd = new InterstitialAd(id, elID);
+    this._state.addAdState(interstitialAd.ad);
+    return interstitialAd;
   }
 
   public push(...fn: Command[]): void {

@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>InterstitialAd Standalone Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            line-height: 1.6;
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .button {
+            background: #007cba;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 5px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .button:hover {
+            background: #005a87;
+        }
+        
+        /* Inline InterstitialAd Styles for testing */
+        .rdn-interstitial-overlay {
+            position: fixed !important;
+            top: 0 !important;
+            left: 0 !important;
+            width: 100% !important;
+            height: 100% !important;
+            background: rgba(0, 0, 0, 0.8) !important;
+            z-index: 999999 !important;
+            display: flex !important;
+            justify-content: center !important;
+            align-items: center !important;
+        }
+
+        .rdn-interstitial-content {
+            position: relative !important;
+            width: 100% !important;
+            height: 100% !important;
+            background: white !important;
+            overflow: hidden !important;
+        }
+
+        .rdn-interstitial-close {
+            position: absolute !important;
+            top: 10px !important;
+            right: 10px !important;
+            width: 30px !important;
+            height: 30px !important;
+            background: rgba(0, 0, 0, 0.7) !important;
+            color: white !important;
+            border: none !important;
+            border-radius: 50% !important;
+            cursor: pointer !important;
+            font-size: 18px !important;
+            font-weight: bold !important;
+            display: flex !important;
+            justify-content: center !important;
+            align-items: center !important;
+            z-index: 1000000 !important;
+        }
+
+        .rdn-interstitial-close:hover {
+            background: rgba(0, 0, 0, 0.9) !important;
+        }
+
+        body.rdn-interstitial-active {
+            overflow: hidden !important;
+        }
+    </style>
+</head>
+<body>
+    <h1>InterstitialAd Standalone Test</h1>
+    <p>This page tests the InterstitialAd functionality without the full SDK build.</p>
+
+    <div class="test-section">
+        <h3>Basic InterstitialAd Test</h3>
+        <p>Test basic interstitial ad with default configuration.</p>
+        <button class="button" onclick="showBasicInterstitial()">Show Basic Interstitial</button>
+        <button class="button" onclick="hideCurrentInterstitial()">Hide Current</button>
+    </div>
+
+    <div class="test-section">
+        <h3>Custom Close Button Test</h3>
+        <p>Test interstitial ad with custom close button configuration.</p>
+        <button class="button" onclick="showCustomCloseInterstitial()">Show Custom Close Button</button>
+    </div>
+
+    <div class="test-section">
+        <h3>Full Screen HTML Content Test</h3>
+        <p>Test with rich HTML content that fills the entire screen.</p>
+        <button class="button" onclick="showFullScreenContent()">Show Full Screen HTML</button>
+    </div>
+
+    <script>
+        // Simplified InterstitialAd implementation for testing
+        class SimpleInterstitialAd {
+            constructor() {
+                this.overlay = null;
+                this.isVisible = false;
+                this.closeButtonConfig = {
+                    text: '×',
+                    position: 'top-right',
+                    size: '30px'
+                };
+                this.callbacks = {};
+            }
+
+            setCallbacks(callbacks) {
+                this.callbacks = { ...this.callbacks, ...callbacks };
+                return this;
+            }
+
+            setCloseButtonConfig(config) {
+                this.closeButtonConfig = { ...this.closeButtonConfig, ...config };
+                return this;
+            }
+
+            show(htmlContent) {
+                if (this.isVisible) {
+                    return;
+                }
+
+                try {
+                    this._createOverlay(htmlContent);
+                    this.isVisible = true;
+                    this.callbacks.onShow && this.callbacks.onShow();
+                } catch (error) {
+                    this.callbacks.onError && this.callbacks.onError(error);
+                }
+            }
+
+            hide() {
+                if (!this.isVisible || !this.overlay) {
+                    return;
+                }
+
+                document.body.removeChild(this.overlay);
+                this.overlay = null;
+                this.isVisible = false;
+                document.body.classList.remove('rdn-interstitial-active');
+                this.callbacks.onHide && this.callbacks.onHide();
+            }
+
+            _createOverlay(htmlContent) {
+                // Create overlay container
+                this.overlay = document.createElement('div');
+                this.overlay.className = 'rdn-interstitial-overlay';
+
+                // Create content container
+                const contentContainer = document.createElement('div');
+                contentContainer.className = 'rdn-interstitial-content';
+
+                // Add HTML content
+                if (htmlContent) {
+                    contentContainer.innerHTML = htmlContent;
+                } else {
+                    contentContainer.innerHTML = '<div style="display: flex; justify-content: center; align-items: center; height: 100%; font-size: 24px;">Loading...</div>';
+                }
+
+                // Create close button if not in content
+                if (!this._hasCloseButtonInContent(htmlContent)) {
+                    const closeButton = this._createCloseButton();
+                    contentContainer.appendChild(closeButton);
+                }
+
+                this.overlay.appendChild(contentContainer);
+                document.body.appendChild(this.overlay);
+
+                // Prevent body scroll
+                document.body.classList.add('rdn-interstitial-active');
+
+                // Add click listener to overlay (close on background click)
+                this.overlay.addEventListener('click', (e) => {
+                    if (e.target === this.overlay) {
+                        this._handleClose();
+                    }
+                });
+            }
+
+            _createCloseButton() {
+                const closeButton = document.createElement('button');
+                const config = this.closeButtonConfig;
+                
+                closeButton.textContent = config.text || '×';
+                closeButton.className = 'rdn-interstitial-close';
+                
+                // Apply custom size
+                if (config.size) {
+                    closeButton.style.width = config.size;
+                    closeButton.style.height = config.size;
+                }
+                
+                // Apply custom position
+                if (config.position !== 'top-right') {
+                    closeButton.style.cssText += this._getCloseButtonPositionStyles();
+                }
+
+                closeButton.addEventListener('click', () => this._handleClose());
+
+                return closeButton;
+            }
+
+            _getCloseButtonPositionStyles() {
+                const position = this.closeButtonConfig.position || 'top-right';
+                switch (position) {
+                    case 'top-left':
+                        return 'top: 10px; left: 10px; right: auto;';
+                    case 'top-right':
+                        return 'top: 10px; right: 10px;';
+                    case 'bottom-left':
+                        return 'bottom: 10px; left: 10px; top: auto; right: auto;';
+                    case 'bottom-right':
+                        return 'bottom: 10px; right: 10px; top: auto;';
+                    default:
+                        return 'top: 10px; right: 10px;';
+                }
+            }
+
+            _hasCloseButtonInContent(htmlContent) {
+                if (!htmlContent) return false;
+                const closeIndicators = [
+                    'data-interstitial-close',
+                    'close-button',
+                    'interstitial-close',
+                    'onclick="close"'
+                ];
+                return closeIndicators.some(indicator => 
+                    htmlContent.toLowerCase().includes(indicator.toLowerCase())
+                );
+            }
+
+            _handleClose() {
+                this.hide();
+                this.callbacks.onClose && this.callbacks.onClose();
+            }
+
+            getIsVisible() {
+                return this.isVisible;
+            }
+        }
+
+        let currentInterstitial = null;
+
+        function showBasicInterstitial() {
+            currentInterstitial = new SimpleInterstitialAd();
+            
+            currentInterstitial.setCallbacks({
+                onShow: () => console.log('Interstitial shown'),
+                onHide: () => console.log('Interstitial hidden'),
+                onClose: () => console.log('Interstitial closed'),
+                onError: (error) => console.error('Interstitial error:', error)
+            });
+
+            const basicContent = `
+                <div style="
+                    display: flex; 
+                    flex-direction: column; 
+                    justify-content: center; 
+                    align-items: center; 
+                    height: 100vh; 
+                    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                    color: white;
+                    text-align: center;
+                    font-family: Arial, sans-serif;
+                ">
+                    <h1 style="font-size: 4em; margin: 0;">Basic Interstitial Ad</h1>
+                    <p style="font-size: 1.5em; margin: 20px 0;">This is a basic full-screen interstitial advertisement.</p>
+                    <p style="font-size: 1em; opacity: 0.8;">Click the X button or click outside to close.</p>
+                    <div style="margin: 30px 0;">
+                        <div style="width: 100px; height: 100px; background: rgba(255,255,255,0.2); border-radius: 50%; margin: 0 auto; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 24px;">AD</div>
+                    </div>
+                </div>
+            `;
+            
+            currentInterstitial.show(basicContent);
+        }
+
+        function showCustomCloseInterstitial() {
+            currentInterstitial = new SimpleInterstitialAd();
+            
+            // Configure custom close button
+            currentInterstitial.setCloseButtonConfig({
+                text: 'CLOSE',
+                position: 'top-left',
+                size: '60px'
+            });
+
+            const customContent = `
+                <div style="
+                    display: flex; 
+                    flex-direction: column; 
+                    justify-content: center; 
+                    align-items: center; 
+                    height: 100vh; 
+                    background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+                    color: white;
+                    text-align: center;
+                    font-family: Arial, sans-serif;
+                ">
+                    <h1 style="font-size: 3.5em; margin: 0;">Custom Close Button</h1>
+                    <p style="font-size: 1.3em; margin: 20px 0;">Notice the custom close button in the top-left corner.</p>
+                    <p style="font-size: 1em; opacity: 0.8;">It says "CLOSE" instead of "×" and has custom styling.</p>
+                    <div style="margin: 30px 0;">
+                        <div style="width: 120px; height: 120px; background: rgba(255,255,255,0.2); border-radius: 20px; margin: 0 auto; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 20px;">CUSTOM</div>
+                    </div>
+                </div>
+            `;
+            
+            currentInterstitial.show(customContent);
+        }
+
+        function showFullScreenContent() {
+            currentInterstitial = new SimpleInterstitialAd();
+            
+            const fullScreenContent = `
+                <div style="
+                    width: 100vw; 
+                    height: 100vh; 
+                    background: linear-gradient(45deg, #ff9a9e, #fecfef, #fecfef, #fad0c4);
+                    position: relative;
+                    overflow: hidden;
+                ">
+                    <!-- Content -->
+                    <div style="
+                        position: relative;
+                        z-index: 1;
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: center;
+                        align-items: center;
+                        height: 100%;
+                        text-align: center;
+                        color: #333;
+                        padding: 40px;
+                        box-sizing: border-box;
+                    ">
+                        <h1 style="font-size: 4em; margin: 0 0 30px 0; text-shadow: 2px 2px 4px rgba(0,0,0,0.1);">
+                            Full Screen Experience
+                        </h1>
+                        <p style="font-size: 1.5em; margin: 0 0 40px 0; max-width: 600px; line-height: 1.6;">
+                            This demonstrates how HTML content can completely fill the viewport, creating an immersive full-screen advertising experience.
+                        </p>
+                        
+                        <!-- Interactive elements -->
+                        <div style="display: flex; gap: 20px; margin: 30px 0; flex-wrap: wrap; justify-content: center;">
+                            <div style="
+                                background: white;
+                                padding: 20px;
+                                border-radius: 10px;
+                                box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+                                cursor: pointer;
+                                transition: transform 0.3s;
+                                min-width: 120px;
+                            " onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+                                <h3 style="margin: 0 0 10px 0; color: #666;">Feature 1</h3>
+                                <p style="margin: 0; color: #888; font-size: 0.9em;">Interactive</p>
+                            </div>
+                            <div style="
+                                background: white;
+                                padding: 20px;
+                                border-radius: 10px;
+                                box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+                                cursor: pointer;
+                                transition: transform 0.3s;
+                                min-width: 120px;
+                            " onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+                                <h3 style="margin: 0 0 10px 0; color: #666;">Feature 2</h3>
+                                <p style="margin: 0; color: #888; font-size: 0.9em;">Rich media</p>
+                            </div>
+                            <div style="
+                                background: white;
+                                padding: 20px;
+                                border-radius: 10px;
+                                box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+                                cursor: pointer;
+                                transition: transform 0.3s;
+                                min-width: 120px;
+                            " onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+                                <h3 style="margin: 0 0 10px 0; color: #666;">Feature 3</h3>
+                                <p style="margin: 0; color: #888; font-size: 0.9em;">Responsive</p>
+                            </div>
+                        </div>
+                        
+                        <p style="font-size: 1em; opacity: 0.7; margin-top: 40px;">
+                            Click the close button or outside this area to dismiss
+                        </p>
+                    </div>
+                </div>
+            `;
+            
+            currentInterstitial.show(fullScreenContent);
+        }
+
+        function hideCurrentInterstitial() {
+            if (currentInterstitial && currentInterstitial.getIsVisible()) {
+                currentInterstitial.hide();
+                console.log('Interstitial hidden manually');
+            } else {
+                console.log('No visible interstitial to hide');
+            }
+        }
+
+        console.log('InterstitialAd standalone test page loaded');
+    </script>
+</body>
+</html>
